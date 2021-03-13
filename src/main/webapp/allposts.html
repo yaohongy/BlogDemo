@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>Posts</title>
+</head>
+<body>
+<h2>Posts</h2>
+
+<div id="posts"></div>
+
+    <script>
+
+        var url="http://localhost:8080/posts?page=0";
+        $.getJSON(url, function (posts) {
+            $.each(posts, function () {
+                var id = this.id;
+                var title = this.title;
+                var contain = this.contain;
+                var url = "editpost.html?id=" + id + "&title=" + title + "&contain=" + contain;
+                $("#posts").append("<div>Post title:   " + title + "</div><br>")
+                .append("<div>Post contain: " + contain + "</div><br>")
+                .append("<a href=" + url + ">edit<a><br><br>")
+            })
+        });
+
+    </script>
+</body>
+</html>

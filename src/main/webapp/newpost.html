@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>New Post</title>
+</head>
+<body>
+<h2>New Post</h2>
+    <form>
+        Title: <input type="text" id="title"/><br>
+        Contain: <input type="text" id="contain"/><br>
+        User_id:<input type="number" id="user_id"/>
+        <input type="button" value="submit" id="sender">
+    </form>
+    <script>
+
+        $('#sender').click(function(){
+            var title=document.getElementById('title').value;
+            var contain=document.getElementById('contain').value;
+            var user_id=document.getElementById('user_id').value;
+            var post={"title":title, "contain":contain};
+            var postData = JSON.stringify(post);
+            var page="posts/" + user_id;
+
+            $.ajax({
+                type:"post",
+                url:page,
+                data:postData,
+                dataType:"json",
+                contentType:"application/json;charset=UTF-8",
+                success:function (result){}
+                });
+                alert("New post created");
+            });
+    </script>
+</body>
+</html>

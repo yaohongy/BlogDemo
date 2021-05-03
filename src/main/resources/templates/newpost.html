@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+
+<body>
+<div th:replace="/fragments/header :: header"/>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('img/404.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Clean Blog</h1>
+                    <span class="subheading">New Post</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <form class="form-group" method="post" action="#" th:action="@{/posts/new}" th:object="${post}">
+        <div class="form-group">
+            <label for="title">Post Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="content">Post Content</label>
+            <textarea type="text" rows="10" class="form-control" id="content" th:field="*{content}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr>
+
+<!-- Footer -->
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+
+</html>

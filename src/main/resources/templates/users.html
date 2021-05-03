@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+
+<body>
+<div th:replace="/fragments/header :: header"/>
+
+<!-- Page Header -->
+<header class="masthead" th:style="'background-image: url(' + @{~/img/home-bg.jpg} + ')'">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1 th:text="'Welcome back ' + ${user.username} ">Welcome</h1>
+                    <span class="subheading">Blog user page</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <img id="portrait" th:src="@{'{username}/portrait'(username=${user.username})}">
+        </div>
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+            <div class="nav">
+                <a th:href="@{~/logout}" class="nav-link">Logout</a>
+                <a th:href="@{/posts/new}" class="nav-link">New post</a>
+                <a th:href="@{'{username}/gallery'(username=${user.username})}" class="nav-link">Gallery</a>
+            </div>
+
+            <div>
+                <h3 class="post-subtitle" th:text="'User Id: ' + ${user.id}">User id</h3>
+                <h3 class="post-subtitle" th:text="'Username: ' + ${user.username}">User id</h3>
+                <h3 class="post-subtitle" th:text="'User email: ' + ${user.email}">User email</h3>
+
+                <br>
+                <button class="button" onclick="showForm('editUser')">edit user</button>
+                <button class="button" onclick="showForm('uploadPortrait')">upload portrait</button>
+                <button class="button" onclick="showForm('uploadGallery')">upload gallery</button>
+
+                <form class="form-text" id="editUser" method="post" action="#" th:action="@{'/users/{username}'(username=${user.username})}" th:object="${user}">
+                    <label for="email" class="sr-only">Change email</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="email"/>
+                    <label for="password" class="sr-only">Change password</label>
+                    <input type="password" id="password" th:field="*{password}" class="form-control" placeholder="password"/>
+                    <button class="button" type="submit">Confirm change</button>
+                </form>
+
+                <form class="form-text" id="uploadPortrait" method="post" action="#" th:action="@{'/users/{username}/portrait/upload'(username=${user.username})}" enctype="multipart/form-data">
+                    <label for="portraitFile" class="sr-only">Upload portrait</label>
+                    <input type="file" id="portraitFile" name="file" class="form-control-file"/>
+                    <button class="button" type="submit">Upload portrait</button>
+                </form>
+
+                <form class="form-text" id="uploadGallery" method="post" action="#" th:action="@{'/users/{username}/gallery/upload'(username=${user.username})}" enctype="multipart/form-data">
+                    <label for="galleryFile" class="sr-only">Upland gallery</label>
+                    <input type="file" id="galleryFile" name="file" class="form-control-file"/>
+                    <button class="button" type="submit">Upload gallery</button>
+                </form>
+
+                <div th:each="error : ${errors}">
+                    <p th:text="${error.getDefaultMessage()}">error</p>
+                </div>
+
+                <br>
+                <div>
+                    <h2 class="post-preview">Your posts</h2>
+                    <ul class="list-group" th:each="post : ${posts}">
+                        <li class="list-group-item">
+                            <a th:href="@{'/posts/{id}'(id=${post.id})}" th:text="${post.title}">Title</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+
+<div th:replace="/fragments/footer :: footer"/>
+<style>
+
+    #editUser, #uploadPortrait, #uploadGallery {
+        display: none;
+    }
+
+    #portrait {
+        width: 200px;
+        height: 200px;
+        background-color: gray;
+        padding: 1em;
+    }
+
+</style>
+<script>
+    function showForm(formName) {
+
+        let x = document.getElementById(formName);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }
+        else {
+            x.style.display = "none";
+        }
+    }
+</script>
+</body>
+
+</html>

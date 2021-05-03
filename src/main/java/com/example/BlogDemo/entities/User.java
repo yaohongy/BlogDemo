@@ -46,6 +46,9 @@ public class User implements Serializable{
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<FileDB> files;
+
     public long getId() {
         return id;
     }
@@ -100,6 +103,14 @@ public class User implements Serializable{
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Collection<FileDB> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Collection<FileDB> files) {
+        this.files = files;
     }
 
     @Override

@@ -40,4 +40,9 @@ public class UserService {
         user.setActive(1);
         return userRepository.save(user);
     }
+
+    public boolean usernameCheck(String username) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        return optionalUser.isPresent();
+    }
 }

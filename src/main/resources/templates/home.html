@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header-css"/>
+</head>
+
+<body>
+<div th:replace="/fragments/header :: header"/>
+
+<!-- Page Header -->
+<header class="masthead" th:style="'background-image: url(' + @{~/img/home-bg.jpg} + ')'">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Clean Blog</h1>
+                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="postPerPage" data-toggle="dropdown">
+                    Post per page
+                </button>
+                <div class="dropdown-menu" aria-labelledby="postPerPage">
+                    <a class="dropdown-item" th:href="@{'/home?page={page}&perPage={perPage}'(page=0, perPage=5)}">5</a>
+                    <a class="dropdown-item" th:href="@{'/home?page={page}&perPage={perPage}'(page=0, perPage=10)}">10</a>
+                    <a class="dropdown-item" th:href="@{'/home?page={page}&perPage={perPage}'(page=0, perPage=50)}">50</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div th:each="post : ${posts}">
+                <div class="post-preview">
+                    <h2 class="post-title">
+                        <a th:href="@{'/posts/{id}'(id=${post.id})}" th:text="${post.title}">Title</a>
+                    </h2>
+                    <h3 class="post-subtitle" th:text="${post.content}">
+                        Post content
+                    </h3>
+                    <p class="post-meta" th:text="'Created: ' + ${post.user.username} + ' by ' + ${#calendars.format(post.createDate, 'MM/dd/yyyy HH:mm')}">
+                        Posted by
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <!-- Pager -->
+
+            <div class="clearfix">
+                <a class="btn btn-secondary float-left" th:if="${page > 0}" th:href="@{'/home?page={page}&perPage={perPage}'(page=${page} - 1, perPage=${perPage})}">&larr; Previous Posts</a>
+                <div class="align-content-center">
+                    <!-- todo pages -->
+                </div>
+                <a class="btn btn-secondary float-right" th:if="${totalPage > page + 1 }" th:href="@{'/home?page={page}&perPage={perPage}'(page=${page} + 1, perPage=${perPage})}">Older Posts &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+
+</html>

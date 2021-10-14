@@ -26,11 +26,11 @@ public class PostController {
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             model.addAttribute("post", post);
-            return "/post";
+            return "post";
         }
         else {
             model.addAttribute("error", "Post not exist");
-            return "/404";
+            return "404";
         }
     }
 }

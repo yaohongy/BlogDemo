@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <div th:replace="/fragments/header :: header-css"/>
+  <div th:replace="fragments/header :: header-css"/>
 </head>
 
 <body>
-<div th:replace="/fragments/header :: header"/>
+<div th:replace="fragments/header :: header"/>
 
   <!-- Page Header -->
   <header class="masthead" th:style="'background-image: url(' + @{~/img/post-bg.jpg} + ')'">

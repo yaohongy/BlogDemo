@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="/fragments/header :: header-css"/>
+    <div th:replace="fragments/header :: header-css"/>
     <script>
         $(document).ready(function (){
             $("#username_check").click(function() {
@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<div th:replace="/fragments/header :: header"/>
+<div th:replace="fragments/header :: header"/>
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('img/home-bg.jpg')">
@@ -61,7 +61,7 @@
 
 
 
-    <div th:replace="/fragments/footer :: footer"/>
+    <div th:replace="fragments/footer :: footer"/>
 
 </div>
 </body></html>

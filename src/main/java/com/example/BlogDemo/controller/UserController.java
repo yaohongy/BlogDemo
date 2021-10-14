@@ -50,11 +50,11 @@ public class UserController {
             List<Post> posts = postPage.getContent();
             model.addAttribute("posts", posts);
             model.addAttribute("user", user);
-            return "/users";
+            return "users";
         }
         else {
             model.addAttribute("error", "User not exist");
-            return "/404";
+            return "404";
         }
     }
 
@@ -70,18 +70,18 @@ public class UserController {
             System.out.println(user);
             userService.save(user);
             model.addAttribute("message", "User info updated");
-            return "/message";
+            return "message";
         }
         else {
             model.addAttribute("error", "User not exist");
-            return "/404";
+            return "404";
         }
     }
 
     @GetMapping("/users/new")
     public String register(Model model) {
         model.addAttribute("user", new User());
-        return "/register";
+        return "register";
     }
 
     @PostMapping("/users/new")
@@ -89,12 +89,12 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             List<ObjectError> allErrors = bindingResult.getAllErrors();
             model.addAttribute("errors", allErrors);
-            return "/register";
+            return "register";
         }
         user.setActive(1);
         user = userService.save(user);
         model.addAttribute("user", user);
-        return "/users";
+        return "users";
     }
 
     @RequestMapping("/username_check")
@@ -112,7 +112,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('USER')")
     public String newPost(Model model) {
         model.addAttribute("post", new Post());
-        return "/newpost";
+        return "newpost";
     }
 
     @GetMapping("/users/{userName}/gallery")
@@ -126,11 +126,11 @@ public class UserController {
             }
             model.addAttribute("user", optionalUser.get());
             model.addAttribute("image_id", ids);
-            return "/gallery";
+            return "gallery";
         }
         else {
             model.addAttribute("message", "User not exist");
-            return "/message";
+            return "message";
         }
     }
 
@@ -143,7 +143,7 @@ public class UserController {
         post.setCreateDate(new Timestamp(System.currentTimeMillis()));
         postService.save(post);
         model.addAttribute("message", "Posted with title " + post.getTitle());
-        return "/message";
+        return "message";
     }
 
 }

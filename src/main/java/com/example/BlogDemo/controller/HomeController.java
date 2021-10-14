@@ -31,13 +31,13 @@ public class HomeController {
         model.addAttribute("page", page);
         model.addAttribute("perPage", perPage);
         model.addAttribute("totalPage", totalPage);
-        return "/home";
+        return "home";
     }
 
     @GetMapping("/login")
     public String showLoginForm(@RequestParam(defaultValue = "false") boolean error, Model model) {
         model.addAttribute("error", error);
-        return "/login";
+        return "login";
     }
 
 }
